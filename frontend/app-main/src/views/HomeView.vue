@@ -8,7 +8,7 @@
   <header class="header" id="header">
     <div class="container header-container">
       <a href="#" class="logo">
-        <span class="logo-text">MedVox<span class="logo-domain">.eu</span></span>
+        <span class="logo-text">MedVox</span>
       </a>
       <nav class="nav" id="nav">
         <a href="#" class="nav-link">Помощь</a>
