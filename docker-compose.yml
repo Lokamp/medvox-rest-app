@@ -1,0 +1,154 @@
+# ============================================================================
+# Medvox — Docker Compose (production)
+#
+# Services:
+#   db                PostgreSQL 18 (data in a named volume, not exposed)
+#   php               PHP 8.5-FPM REST API (custom image, pdo_pgsql)
+#   app-main          builds the Main SPA into a volume, then exits
+#   app-admin-panel   builds the AdminPanel SPA into a volume, then exits
+#   app-project-panel builds the ProjectPanel SPA into a volume, then exits
+#   nginx             serves the API (/api/) and the built SPAs (/)
+#
+# Secrets come from a local .env file (see .env.example). Never commit .env.
+# ============================================================================
+
+services:
+  # --------------------------------------------------------------------------
+  # PostgreSQL 18
+  # --------------------------------------------------------------------------
+  db:
+    image: postgres:18
+    container_name: medvox-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-medvox}
+      POSTGRES_USER: ${POSTGRES_USER:-medvox}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required (see .env.example)}
+    volumes:
+      # PostgreSQL 18+ stores data in a version-specific subdirectory of
+      # /var/lib/postgresql (mounting /var/lib/postgresql/data is no longer valid).
+      - db_data:/var/lib/postgresql
+      # Applied automatically on first initialization (empty data volume).
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    # Not published to the host for security. Uncomment to expose for debugging:
+    # ports:
+    #   - "5432:5432"
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-medvox} -d ${POSTGRES_DB:-medvox}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - medvox
+
+  # --------------------------------------------------------------------------
+  # PHP 8.5-FPM (REST API)
+  # --------------------------------------------------------------------------
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: medvox-php
+    restart: unless-stopped
+    working_dir: /var/www/backend
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB:-medvox}
+      DB_USER: ${POSTGRES_USER:-medvox}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required (see .env.example)}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required (see .env.example)}
+      JWT_ISSUER: ${JWT_ISSUER:-medvox}
+      JWT_TTL: ${JWT_TTL:-3600}
+      RATE_LIMIT_LOGIN_MAX: ${RATE_LIMIT_LOGIN_MAX:-10}
+      RATE_LIMIT_LOGIN_WINDOW: ${RATE_LIMIT_LOGIN_WINDOW:-60}
+    volumes:
+      - ./backend:/var/www/backend
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - medvox
+
+  # --------------------------------------------------------------------------
+  # Frontend build containers (build once, then exit)
+  # Each builds its SPA into a named volume that nginx serves.
+  # --------------------------------------------------------------------------
+  app-main:
+    image: node:22-alpine
+    container_name: medvox-app-main
+    working_dir: /app
+    command: sh -c "npm install && npm run build"
+    volumes:
+      - ./frontend/app-main:/app
+      - /app/node_modules
+      - app_main_dist:/app/dist
+    restart: "no"
+    networks:
+      - medvox
+
+  app-admin-panel:
+    image: node:22-alpine
+    container_name: medvox-app-admin-panel
+    working_dir: /app
+    command: sh -c "npm install && npm run build"
+    volumes:
+      - ./frontend/app-admin-panel:/app
+      - /app/node_modules
+      - app_admin_panel_dist:/app/dist
+    restart: "no"
+    networks:
+      - medvox
+
+  app-project-panel:
+    image: node:22-alpine
+    container_name: medvox-app-project-panel
+    working_dir: /app
+    command: sh -c "npm install && npm run build"
+    volumes:
+      - ./frontend/app-project-panel:/app
+      - /app/node_modules
+      - app_project_panel_dist:/app/dist
+    restart: "no"
+    networks:
+      - medvox
+
+  # --------------------------------------------------------------------------
+  # Nginx (serves the API + the built SPAs)
+  # --------------------------------------------------------------------------
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: medvox-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - app_main_dist:/var/www/app-main:ro
+      - app_admin_panel_dist:/var/www/app-admin-panel:ro
+      - app_project_panel_dist:/var/www/app-project-panel:ro
+    depends_on:
+      php:
+        condition: service_started
+      app-main:
+        condition: service_completed_successfully
+      app-admin-panel:
+        condition: service_completed_successfully
+      app-project-panel:
+        condition: service_completed_successfully
+    networks:
+      - medvox
+
+volumes:
+  db_data:
+  app_main_dist:
+  app_admin_panel_dist:
+  app_project_panel_dist:
+
+networks:
+  medvox:
+    driver: bridge

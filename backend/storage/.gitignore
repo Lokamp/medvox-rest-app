@@ -1,0 +1,3 @@
+# Ignore all runtime files (rate-limit counters, logs, cache) but keep this file.
+*
+!.gitignore
