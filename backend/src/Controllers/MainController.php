@@ -28,11 +28,33 @@ final class MainController
     }
 
     /**
-     * GET /api/v1/main/faq — public FAQ (stub).
+     * GET /api/v1/main/faq — public FAQ.
+     *
+     * Returns the list of help topics shown on the public "Помощь" page.
+     * The content is managed from the admin panel, so it is read from the
+     * `faq` table on every request (no caching at this layer).
      */
     public function faq(Request $request): void
     {
-        $this->notImplemented('faq');
+        $statement = $this->pdo->query(
+            'SELECT id, title, description, created_at
+               FROM faq
+              ORDER BY id ASC'
+        );
+
+        $rows = $statement->fetchAll();
+
+        $items = array_map(
+            static fn (array $row): array => [
+                'id'          => (int) $row['id'],
+                'title'       => (string) $row['title'],
+                'description' => (string) $row['description'],
+                'created_at'  => (string) $row['created_at'],
+            ],
+            $rows
+        );
+
+        $this->respond(200, ['items' => $items]);
     }
 
     /**

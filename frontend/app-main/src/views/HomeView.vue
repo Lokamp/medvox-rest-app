@@ -1,27 +1,13 @@
 <script setup>
 // Главная (лендинг) страница приложения Main.
 // Публичная страница — собственного эндпоинта на бэкенде у неё нет.
+import AppHeader from '@/components/AppHeader.vue'
+import AppFooter from '@/components/AppFooter.vue'
 </script>
 
 <template>
   <!-- Header -->
-  <header class="header" id="header">
-    <div class="container header-container">
-      <a href="#" class="logo">
-        <span class="logo-text">MedVox</span>
-      </a>
-      <nav class="nav" id="nav">
-        <a href="#" class="nav-link">Помощь</a>
-        <a href="#" class="nav-link">Войти в личный кабинет</a>
-        <a href="/reg/" target="_blank" class="btn btn-primary nav-btn">Зарегистрироваться</a>
-      </nav>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Открыть меню">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
+  <AppHeader />
 
   <!-- Hero Section -->
   <section class="hero">
@@ -266,19 +252,5 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#" class="logo">
-            <span class="logo-text">MedVox<span class="logo-domain">.eu</span></span>
-          </a>
-          <p class="footer-desc">Платформа для медицинских исследований, объединяющая врачей и фармацевтические компании.</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 MedVox.eu. Все права защищены.</p>
-      </div>
-    </div>
-  </footer>
+  <AppFooter />
 </template>

@@ -10,6 +10,12 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/faq',
+      name: 'faq',
+      // Страница помощи: данные приходят из GET /api/v1/main/faq.
+      component: () => import('../views/FaqView.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
