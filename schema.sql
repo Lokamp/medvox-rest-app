@@ -236,6 +236,8 @@ CREATE TABLE users (
     status                  user_status_type NOT NULL DEFAULT 'registered',
     registered_at           TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at              TIMESTAMPTZ NULL,
+    first_sign_in_ip        INET NULL,
+    last_sign_in_ip         INET NULL,
 
     CONSTRAINT fk_users_specialization
         FOREIGN KEY (specialization_id) REFERENCES specializations (id)
@@ -275,6 +277,8 @@ COMMENT ON COLUMN users.cookie_id IS 'Cookie ID для отслеживания'
 COMMENT ON COLUMN users.status IS 'Статус пользователя';
 COMMENT ON COLUMN users.registered_at IS 'Дата регистрации';
 COMMENT ON COLUMN users.updated_at IS 'Дата последнего обновления';
+COMMENT ON COLUMN users.first_sign_in_ip IS 'IP-адрес при регистрации (заполняется один раз)';
+COMMENT ON COLUMN users.last_sign_in_ip IS 'IP-адрес последнего изменения данных в личном кабинете';
 
 -- email уже покрыт UNIQUE-индексом, отдельный idx_users_email не создаётся
 CREATE INDEX idx_users_specialization ON users (specialization_id);
