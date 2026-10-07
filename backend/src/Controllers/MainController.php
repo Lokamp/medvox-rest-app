@@ -58,11 +58,11 @@ final class MainController
     }
 
     /**
-     * POST /api/v1/main/register — public registration (stub).
+     * POST /api/v1/main/registration — public registration (stub).
      */
-    public function register(Request $request): void
+    public function registration(Request $request): void
     {
-        $this->notImplemented('register');
+        $this->notImplemented('registration');
     }
 
     /**

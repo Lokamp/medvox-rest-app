@@ -145,7 +145,7 @@ try {
     $mainAuth = new RoleMiddleware($jwt, ['user'], 'main');
 
     $router->get('/api/v1/main/faq', MainController::class, 'faq');
-    $router->post('/api/v1/main/register', MainController::class, 'register');
+    $router->post('/api/v1/main/registration', MainController::class, 'registration');
     $router->post('/api/v1/main/auth/login', AuthController::class, 'mainLogin', [$loginRateLimit]);
     $router->get('/api/v1/main/account/home', MainController::class, 'accountHome', [$mainAuth]);
 
