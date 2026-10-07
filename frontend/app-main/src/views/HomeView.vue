@@ -14,14 +14,14 @@ import AppFooter from '@/components/AppFooter.vue'
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-title">MedVox - Ваше экспертное мнение <span class="highlight">ценно</span></h1>
-        <p class="hero-subtitle">Только для <b>врачей</b> с высшем медицинским образованием. Участвуйте в онлайн-исследованиях ведущих фармацевтических компаний и получайте достойное вознаграждение за свои знания и опыт.</p>
+        <p class="hero-subtitle">Только для <b>врачей</b> с высшим медицинским образованием. Участвуйте в онлайн-исследованиях ведущих фармацевтических компаний и получайте достойное вознаграждение за свои знания и опыт.</p>
         <div class="hero-actions">
           <a href="/reg/" target="_blank" class="btn btn-primary btn-lg">Начать зарабатывать</a>
           <a href="#how-it-works" class="btn btn-outline btn-lg">Узнать больше</a>
         </div>
         <div class="hero-stats">
           <div class="stat">
-            <span class="stat-number">39 409+</span>
+            <span class="stat-number">39 500+</span>
             <span class="stat-label">врачей в сети</span>
           </div>
           <div class="stat">
@@ -244,7 +244,7 @@ import AppFooter from '@/components/AppFooter.vue'
     <div class="container">
       <div class="cta-content">
         <h2 class="cta-title">Готовы начать зарабатывать?</h2>
-        <p class="cta-text">Присоединяйтесь к 38 500+ врачам, которые уже получают дополнительный доход с MedVox</p>
+        <p class="cta-text">Присоединяйтесь к 39 500+ врачам, которые уже получают дополнительный доход с MedVox</p>
         <a href="/reg/" target="_blank" class="btn btn-white btn-lg">Зарегистрироваться бесплатно</a>
         <p class="cta-note">Регистрация занимает 3 минуты. Регистрация абсолютно бесплатная.</p>
       </div>
