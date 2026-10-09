@@ -16,6 +16,12 @@ const router = createRouter({
       component: () => import('../views/FaqView.vue'),
     },
     {
+      path: '/registration',
+      name: 'registration',
+      // Страница регистрации: пока только фронтенд, эндпоинт появится позже.
+      component: () => import('../views/RegistrationView.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
