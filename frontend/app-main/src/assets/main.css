@@ -203,8 +203,6 @@ a {
 /* Hero Section */
 .hero {
   position: relative;
-  padding: 100px 0 80px;
-  background: linear-gradient(180deg, var(--white) 0%, var(--bg) 100%);
   overflow: hidden;
 }
 
