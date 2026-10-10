@@ -37,7 +37,7 @@ onMounted(async () => {
   <AppHeader />
 
   <main class="help-page">
-    <section class="hero" aria-labelledby="page-title">
+    <section class="help-intro" aria-labelledby="page-title">
       <p class="eyebrow">Центр помощи</p>
       <h1 id="page-title" class="help-title">Помощь и ответы</h1>
       <p class="intro">Выберите тему, чтобы найти подробный ответ на свой вопрос.</p>
