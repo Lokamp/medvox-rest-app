@@ -21,15 +21,16 @@ const router = createRouter({
       // Страница регистрации: пока только фронтенд, эндпоинт появится позже.
       component: () => import('../views/RegistrationView.vue'),
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-    },
   ],
+  // При любом обычном переходе между страницами прокручиваем в самый верх.
+  // При навигации «Назад»/«Вперёд» восстанавливаем сохранённую позицию скролла.
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    }
+
+    return { top: 0 }
+  },
 })
 
 export default router
