@@ -41,7 +41,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-height: 100dvh;
+}
+
+/* Динамическая высота вьюпорта (мобильные). Вынесено в @supports,
+   чтобы минификатор не вырезал фолбэк min-height: 100vh выше. */
+@supports (min-height: 100dvh) {
+  .app-layout {
+    min-height: 100dvh;
+  }
 }
 
 /* Центральная часть растягивается на всю высоту, прижимая подвал вниз */
