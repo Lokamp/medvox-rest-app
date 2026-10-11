@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router'
       <div class="footer-grid">
         <div class="footer-brand">
           <RouterLink to="/" class="logo">
-            <span class="logo-text">MedVox</span>
+            <span class="logo-text">Med<span class="logo-vox-color">Vox</span></span>
           </RouterLink>
           <p class="footer-desc">
             Платформа для медицинских исследований, объединяющая врачей и фармацевтические компании.

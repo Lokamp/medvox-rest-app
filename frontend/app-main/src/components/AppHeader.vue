@@ -33,7 +33,7 @@ onBeforeUnmount(() => {
   <header class="header" :class="{ scrolled }">
     <div class="container header-container">
       <RouterLink to="/" class="logo" @click="closeMenu">
-        <span class="logo-text">MedVox</span>
+        <span class="logo-text">Med<span class="logo-vox-color">Vox</span></span>
       </RouterLink>
       <nav class="nav" :class="{ active: menuOpen }">
         <RouterLink to="/faq" class="nav-link" @click="closeMenu">Помощь</RouterLink>

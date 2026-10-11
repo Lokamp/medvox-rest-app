@@ -13,7 +13,7 @@ import AppFooter from '@/components/AppFooter.vue'
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1 class="hero-title">MedVox - Ваше экспертное мнение <span class="highlight">ценно</span></h1>
+        <h1 class="hero-title">Med<span class="logo-vox-color">Vox</span> - Ваше экспертное мнение <span class="highlight">ценно</span></h1>
         <p class="hero-subtitle">Только для <b>врачей</b> с высшим медицинским образованием. Участвуйте в онлайн-исследованиях ведущих фармацевтических компаний и получайте достойное вознаграждение за свои знания и опыт.</p>
         <div class="hero-actions">
           <a href="/registration" class="btn btn-primary btn-lg">Начать зарабатывать</a>
