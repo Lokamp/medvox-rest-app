@@ -33,6 +33,27 @@ body {
   font-size: 16px;
 }
 
+/* ==================== */
+/* GLOBAL LAYOUT        */
+/* Sticky footer: подвал всегда прижат к низу экрана */
+/* ==================== */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Центральная часть растягивается на всю высоту, прижимая подвал вниз */
+.app-layout > main {
+  flex: 1 0 auto;
+}
+
+/* Подвал прижимается к низу, даже если контента нет или он ещё загружается */
+.app-layout > footer {
+  margin-top: auto;
+}
+
 a {
   text-decoration: none;
   color: inherit;
