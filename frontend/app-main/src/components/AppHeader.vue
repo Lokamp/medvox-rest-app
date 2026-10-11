@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
       <nav class="nav" :class="{ active: menuOpen }">
         <RouterLink to="/faq" class="nav-link" @click="closeMenu">Помощь</RouterLink>
         <a href="#" class="nav-link">Войти в личный кабинет</a>
-        <a href="/registration" class="btn btn-primary nav-btn">Зарегистрироваться</a>
+        <RouterLink to="/registration" class="btn btn-primary nav-btn" @click="closeMenu">Зарегистрироваться</RouterLink>
       </nav>
       <button
         class="menu-toggle"
