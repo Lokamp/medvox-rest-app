@@ -1068,7 +1068,7 @@ a {
   width: min(100% - 32px, 760px);
   margin: 0 auto;
   padding: 120px 0 72px;
-  min-height: 1200px;
+  min-height: 100vh;
 }
 
 .help-page .help-intro {
