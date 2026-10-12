@@ -24,7 +24,6 @@ const router = createRouter({
   ],
   // При любом обычном переходе между страницами прокручиваем в самый верх.
   // При навигации «Назад»/«Вперёд» восстанавливаем сохранённую позицию скролла.
-  /*
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -32,7 +31,6 @@ const router = createRouter({
 
     return { top: 0 }
   },
-  */
 })
 
 export default router
